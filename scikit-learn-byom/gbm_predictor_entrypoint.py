@@ -21,6 +21,8 @@ def input_fn(request_body, request_content_type):
         # Read the raw input data as CSV.
         npreq = np.genfromtxt(StringIO(request_body), delimiter=",")
         print ("shape of array:{}".format(npreq.shape))
+        if npreq.ndim == 1:
+            npreq = np.array([npreq])
         return npreq
     elif request_content_type == 'application/x-npy':
         return _npy_loads(request_body)
